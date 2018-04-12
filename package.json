@@ -1,0 +1,14 @@
+{
+  "name": "novos-filiados",
+  "version": "0.0.1",
+  "description": "Read NOVO Party Members",
+  "main": "server.js",
+  "author": "Fernando Augusto",
+  "dependencies": {
+    "express": "latest",
+    "request": "latest",
+    "cheerio": "latest",
+    "nodemailer": "^4.4.1",
+    "nodemailer-smtp-transport": "^2.7.4"
+  }
+}
