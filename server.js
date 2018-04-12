@@ -17,6 +17,9 @@ app.get('/requests', async (req, res) => {
   if (req.query.cities && req.query.emails) {
     cities = req.query.cities.split(',');
     emails = req.query.emails;
+  } else if (req.query.cities && !req.query.emails) {
+    cities = req.query.cities.split(',');
+    emails = '';
   } else {
     res.status(400).send('No parameters');
   }
@@ -61,17 +64,23 @@ app.get('/requests', async (req, res) => {
       }
     });
 
+    if (emails.length > 0) {
+      try {
+        emailController.sendEmail(local_members, emails);
+        res.status(200).send(local_members);
+      } catch(e) {
+        console.log(e);
+        res.status(400).send(e);
+      }
+    } else {
+      res.status(200).send(local_members);
+    }
+
     /*fs.writeFile('output_content.json', JSON.stringify(contents_raw), function(err){
       console.log('File successfully written! - Check your project directory for the output_content.json file');
     })*/
 
-    try {
-      emailController.sendEmail(local_members, emails);
-      res.status(200).send(local_members);
-    } catch(e) {
-      console.log(e);
-      res.status(400).send(e);
-    }
+
 
   });
 })
