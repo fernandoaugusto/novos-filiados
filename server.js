@@ -76,6 +76,7 @@ app.get('/requests', async (req, res) => {
   });
 })
 
-app.listen('8081')
-console.log('Magic happens on port 8081');
+var port = process.env.PORT.toString() || '3000';
+app.listen(port);
+console.log(`Magic happens on port ${process.env.PORT}`);
 module.exports = app;
